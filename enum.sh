@@ -77,8 +77,8 @@ assetfinder -subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- TIME TO CHECK ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
-cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -mc 200 > $SUBDOMAIN_PATH/alive.txt
-cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdete>
+cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -mc 200 > $SUBDOMAIN_PATH/alive.txt
+cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdete>
 
 
 printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
