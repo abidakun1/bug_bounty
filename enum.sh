@@ -89,7 +89,7 @@ echo -e "${RED} [+] This may take some time... Make sure you take a break and ha
 cat $SUBDOMAIN_PATH/alive.txt | sed -e 's/^http:\/\///g' -e 's/^https:\/\///g' |  while read y;
 do
 
-ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -u https://$y/FUZZ  > $DIRECTORY_ENUM/ffuf_enum.txt
+ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -u https://$y/FUZZ -o $DIRECTORY_ENUM/ffuf_enum.txt
 
 done 
 
