@@ -2,7 +2,7 @@
 
 figlet -l Enumerator
 
-printf "\n-----MadeBy Uebercrack3r WithL0ve------\n\n" 
+printf "\n-----ImprovedBy Uebercrack3r WithL0ve------\n\n" 
 
 RED="\033[1;31m" 
 RESET="\033[0m" 
