@@ -78,7 +78,7 @@ assetfinder -subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 printf "\n----- TIME TO CHECK ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
 cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -mc 200 > $SUBDOMAIN_PATH/alive.txt
-cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdetect.txt>
+cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdetect.txt
 
 
 printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
@@ -90,7 +90,8 @@ cat $SUBDOMAIN_PATH/alive.txt | sed -e 's/^http:\/\///g' -e 's/^https:\/\///g' |
 do
 
 ffuf -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt -u https://$y/FUZZ >> $DIRECTORY_ENUM/ffuf_enum.txt
-
+#or 
+#gobuster dir -u https://$y -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt >>  $DIRECTORY_ENUM/ffuf_enum.txt
 done 
 
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
