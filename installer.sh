@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIST_OF_APPS="amass sublist3r subfinder cargo httpx-toolkit assetfinder nuclei"
+LIST_OF_APPS="amass figlet sublist3r subfinder cargo httpx-toolkit assetfinder nuclei"
 
 sudo -n true
 test $? -eq 0 || exit 1 "you should have sudo privilege to run this script"
