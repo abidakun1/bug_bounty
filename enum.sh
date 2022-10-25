@@ -96,7 +96,7 @@ done
 
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
 echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
-cat $SUBDOMAIN_PATH/alive.txt | nuclei -silent > $INFO_PATH/nuclei.txt
+cat $SUBDOMAIN_PATH/alive.txt | nuclei -t cves/ -t default-logins/ -t exposed-panels/ -t takeovers/ -t vulnerabilities/ -t iot/ -silent > $INFO_PATH/nuclei.txt
 
 echo -e "DONE"
 
