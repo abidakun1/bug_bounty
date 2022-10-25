@@ -2,7 +2,7 @@
 
 figlet -l Enumerator
 
-printf "\n-----ImprovedBy Uebercrack3r WithL0ve------\n\n" 
+printf "\n-----MAd3 WithL0ve------\n\n" 
 
 RED="\033[1;31m" 
 RESET="\033[0m" 
@@ -96,7 +96,7 @@ done
 
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
 echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
-cat $SUBDOMAIN_PATH/alive.txt | nuclei -t cves/ -t default-logins/ -t exposed-panels/ -t takeovers/ -t vulnerabilities/ -t iot/ -silent > $INFO_PATH/nuclei.txt
+cat $SUBDOMAIN_PATH/alive.txt | nuclei -t cves/ -t default-logins/ -t exposed-panels/ -t takeovers/ -t vulnerabilities/ -t iot/ -silent -rl 250 -bs 50 > $INFO_PATH/nuclei.txt
 
 echo -e "DONE"
 
