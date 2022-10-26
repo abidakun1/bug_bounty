@@ -6,7 +6,7 @@ if [[ "$(whoami)" != root ]]; then
 echo "Only sudo user can run this script."
 exit 0
 fi
-echo "Press to start installing the must-have pre-requisetes"
+echo "Press EnterKey to start installing the must-have pre-requisetes"
 while read -r p 
 do 
 sudo apt-get update && sudo apt-get install -y  $LIST_OF_APPS;
