@@ -2,7 +2,7 @@
 
 figlet -l Enumerator
 
-printf "\n-----MAd3 WithL0ve------\n\n" 
+printf "\n  MAd3 WithL0v  \n\n" 
 
 RED="\033[1;31m" 
 RESET="\033[0m" 
