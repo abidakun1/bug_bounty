@@ -3,8 +3,8 @@
 LIST_OF_APPS="amass figlet sublist3r subfinder cargo httpx-toolkit assetfinder nuclei seclists"
 
 if [[ "$(whoami)" != root ]]; then
-  echo "Only sudo user can run this script."
-  exit 1
+echo "Only sudo user can run this script."
+exit 1
 echo "installing the must-have pre-requisites"
 while read -r p 
 do 
