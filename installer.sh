@@ -16,4 +16,3 @@ done
 
 echo "DONE"
 
-exit 0
