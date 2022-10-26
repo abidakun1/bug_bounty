@@ -11,7 +11,7 @@ while read -r p
 do 
 sudo apt-get update && sudo apt-get install -y  $LIST_OF_APPS;
 
-git clone https://github.com/Edu4rdSHL/findomain.git;cd findomain;cargo build --release;sudo cp target/release/findomain /usr/bin/;
+git clone https://github.com/Edu4rdSHL/findomain.git;cd findomain;cargo build --release;sudo cp target/release/findomain /usr/bin/
 
 done 
 
