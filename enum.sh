@@ -11,7 +11,7 @@ TARGET=$1
 DOMAIN="$1_domain" 
 INFO_PATH="$1_domain/info" 
 SUBDOMAIN_PATH="$1_domain/subdomain" 
-DIRECTORY_ENUM="$1_domain/directory_enum" 
+#DIRECTORY_ENUM="$1_domain/directory_enum" 
 
 
 if [ -z "$1" ] 
