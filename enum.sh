@@ -82,6 +82,13 @@ cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -mc 200,302  > $
 cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdetect.txt
 
 
+
+
+printf "\n----- VULNERABILITY SCANNING-----\n\n" 
+echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
+cat $SUBDOMAIN_PATH/alive.txt | nuclei -t cves/ -t default-logins/ -t exposed-panels/ -t takeovers/ -t vulnerabilities/ -t iot/ -silent -rl 250 -bs 50 > $INFO_PATH/nuclei.txt
+
+
 printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
 echo -e "${RED} [+] Starting Directory Enumeration...... ${RESET}" 
 echo -e "${RED} [+]Doing FFUF subdomain enum...${RESET}" 
@@ -94,10 +101,6 @@ dirsearch -u https://$y/FUZZ   -w /usr/share/seclists/Discovery/Web-Content/dire
 #or 
 #gobuster dir -u https://$y -w /usr/share/seclists/Discovery/Web-Content/common.txt >>  $DIRECTORY_ENUM/ffuf_enum.txt
 done 
-
-printf "\n----- VULNERABILITY SCANNING-----\n\n" 
-echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
-cat $SUBDOMAIN_PATH/alive.txt | nuclei -t cves/ -t default-logins/ -t exposed-panels/ -t takeovers/ -t vulnerabilities/ -t iot/ -silent -rl 250 -bs 50 > $INFO_PATH/nuclei.txt
 
 echo -e "DONE"
 
