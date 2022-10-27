@@ -4,7 +4,7 @@ LIST_OF_APPS="amass dirsearch figlet sublist3r subfinder cargo httpx-toolkit ass
 
 if [[ "$(whoami)" != root ]]; then
 echo "Only sudo user can run this script."
-exit 0
+exit 1
 fi
 echo "Press EnterKey to start installing the must-have pre-requisetes"
 while read -r p 
@@ -17,3 +17,4 @@ done
 
 echo "DONE"
 
+exit 0
