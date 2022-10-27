@@ -104,4 +104,4 @@ cat $SUBDOMAIN_PATH/alive.txt | nuclei  > $INFO_PATH/nuclei.txt
 #done 
 
 echo -e "DONE"
-
+exit
