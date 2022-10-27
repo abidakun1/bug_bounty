@@ -8,10 +8,10 @@ RED="\033[1;31m"
 RESET="\033[0m" 
 
 TARGET=$1 
-DOMAIN="domain" 
-INFO_PATH="domain/info" 
-SUBDOMAIN_PATH="domain/subdomain" 
-DIRECTORY_ENUM="domain/directory_enum" 
+DOMAIN="$1_domain" 
+INFO_PATH="$1_domain/info" 
+SUBDOMAIN_PATH="$1_domain/subdomain" 
+DIRECTORY_ENUM="$1_domain/directory_enum" 
 
 
 if [ -z "$1" ] 
@@ -78,7 +78,7 @@ assetfinder -subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- TIME TO CHECK ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
-cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -mc 200,302  > $SUBDOMAIN_PATH/alive.txt
+cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -sc -mc 200,302  > $SUBDOMAIN_PATH/alive.txt
 cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdetect.txt
 
 
@@ -86,21 +86,22 @@ cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-det
 
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
 echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
+echo -e "${RED} [+] This may take some time... Make sure you take a break and have a coffee....${RESET}"
 cat $SUBDOMAIN_PATH/alive.txt | nuclei  > $INFO_PATH/nuclei.txt
 
 
-printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
-echo -e "${RED} [+] Starting Directory Enumeration...... ${RESET}" 
-echo -e "${RED} [+]Doing FFUF subdomain enum...${RESET}" 
-echo -e "${RED} [+] This may take some time... Make sure you take a break and have a coffee....${RESET}" 
+#printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
+#echo -e "${RED} [+] Starting Directory Enumeration...... ${RESET}" 
+#echo -e "${RED} [+]Doing FFUF subdomain enum...${RESET}" 
+#echo -e "${RED} [+] This may take some time... Make sure you take a break and have a coffee....${RESET}" 
 
-cat $SUBDOMAIN_PATH/alive.txt | sed -e 's/^http:\/\///g' -e 's/^https:\/\///g' |  while read y;
-do
+#cat $SUBDOMAIN_PATH/alive.txt | sed -e 's/^http:\/\///g' -e 's/^https:\/\///g' |  while read y;
+#do
 
-dirsearch -u https://$y/FUZZ   -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt >> $DIRECTORY_ENUM/ffuf_enum.txt
+#dirsearch -u https://$y/FUZZ   -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt >> $DIRECTORY_ENUM/ffuf_enum.txt
 #or 
 #gobuster dir -u https://$y -w /usr/share/seclists/Discovery/Web-Content/common.txt >>  $DIRECTORY_ENUM/ffuf_enum.txt
-done 
+#done 
 
 echo -e "DONE"
 
