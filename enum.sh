@@ -13,6 +13,7 @@ INFO_PATH="domain/info"
 SUBDOMAIN_PATH="domain/subdomain" 
 DIRECTORY_ENUM="domain/directory_enum" 
 
+
 if [ -z "$1" ] 
   then
     echo -e "${RED} [+] USAGE : ./enum.sh <target.com> ${RESET}" 
