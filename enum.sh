@@ -86,7 +86,7 @@ cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-det
 
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
 echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
-cat $SUBDOMAIN_PATH/alive.txt | nuclei -t cves/ -t default-logins/ -t exposed-panels/ -t takeovers/ -t vulnerabilities/ -t iot/ -silent -rl 250 -bs 50 > $INFO_PATH/nuclei.txt
+cat $SUBDOMAIN_PATH/alive.txt | nuclei  > $INFO_PATH/nuclei.txt
 
 
 printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
