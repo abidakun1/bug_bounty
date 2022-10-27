@@ -92,7 +92,7 @@ do
 
 dirsearch -u https://$y/FUZZ   -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt >> $DIRECTORY_ENUM/ffuf_enum.txt
 #or 
-#gobuster dir -u https://$y -w /usr/share/seclists/Discovery/Web-Content/directory-list-2.3-small.txt >>  $DIRECTORY_ENUM/ffuf_enum.txt
+#gobuster dir -u https://$y -w /usr/share/seclists/Discovery/Web-Content/common.txt >>  $DIRECTORY_ENUM/ffuf_enum.txt
 done 
 
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
