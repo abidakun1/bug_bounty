@@ -96,8 +96,9 @@ cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u | httprobe -c 50 -t 3000  >> $
 cat $SUBDOMAIN_PATH/responsive.txt  | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | while read line; do
 probeurl=$(cat  $SUBDOMAIN_PATH/responsive.txt | sort -u | grep -m 1 $line)  
 echo "$probeurl" >>  $SUBDOMAIN_PATH/urllist.txt
-done
-echo "(cat $SUBDOMAIN_PATH/urllist.txt | sort -u)" > $SUBDOMAIN_PATH/urllist.txt
+done 
+
+cat $SUBDOMAIN_PATH/urllist.txt | sort -u > $SUBDOMAIN_PATH/urllist.txt
 echo  "${yellow}Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}') live subdomains were found${reset}"
 
 printf "\n----- TIME TO TAKE SCREENSHOTS OF ALL PROBE SUBDOMAIN -----\n\n" 
