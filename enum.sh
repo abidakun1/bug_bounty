@@ -93,10 +93,8 @@ assetfinder --subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 printf "\n----- FINALLY TIME TO PROBE ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
 cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u | httprobe -c 50 -t 3000  >> $SUBDOMAIN_PATH/responsive.txt
-cat $SUBDOMAIN_PATH/responsive.txt  | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | while read line; do
-cat  $SUBDOMAIN_PATH/responsive.txt | sort -u | grep -m 1 $line | tee -a  $SUBDOMAIN_PATH/urllist.txt
-done 
-
+cat $SUBDOMAIN_PATH/responsive.txt  | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | tee -a  $SUBDOMAIN_PATH/responsive.txt
+cat  $SUBDOMAIN_PATH/responsive.txt | sort -u | grep -m 1 $line | tee -a  $SUBDOMAIN_PATH/urllist.tx 
 cat $SUBDOMAIN_PATH/urllist.txt | sort -u > $SUBDOMAIN_PATH/urllist.txt
 echo  "${yellow}Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}') live subdomains were found${reset}"
 
