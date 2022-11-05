@@ -45,8 +45,8 @@ fi
 mkdir $GAU_PATH 
 fi
 
-if [ !  -d "$SCREEENSHOTS" ];then 
-mkdir $SCREENSHOTS
+if [ !  -d "$SCREEENSHOT" ];then 
+mkdir $SCREENSHOT
 fi 
  
 
