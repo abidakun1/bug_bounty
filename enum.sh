@@ -78,7 +78,7 @@ sublist3r -d $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- ASSETFINDER -----\n\n" 
 echo -e "${RED} [+] Launching Assetfinder... ${RESET}" 
-assetfinder -subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt 
+assetfinder --subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt 
 
 printf "\n----- FINALLY TIME TO PROBE ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
