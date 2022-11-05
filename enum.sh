@@ -92,13 +92,13 @@ assetfinder --subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- FINALLY TIME TO PROBE ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
-cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u | httprobe -c 50 -t 3000  >> $SUBDOMAIN_PATH/responsive.txt
+cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u | http-toolkit -mc 20 > $SUBDOMAIN_PATH/responsive.txt
 cat $SUBDOMAIN_PATH/responsive.txt  | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | tee -a  $SUBDOMAIN_PATH/urllist.txt
 echo  "${yellow}Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}') live subdomains were found${reset}"
 
 printf "\n----- TIME TO TAKE SCREENSHOTS OF ALL PROBE SUBDOMAIN -----\n\n" 
 echo "Starting aquatone scan..."
-cat $SUBDOMAIN_PATH/urllist.txt | aquatone -chrome-path /usr/bin/chromium -out $SCREENSHOT -threads 5 -silent 
+cat $SUBDOMAIN_PATH/urllist.txt | aquatone  -out $SCREENSHOT -threads 5 -silent 
 
 
 printf "\n----- SCRAPE4SCRAPE -----\n\n" 
