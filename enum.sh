@@ -54,7 +54,7 @@ nslookup $TARGET > $INFO_PATH/nslookup.txt
 
 printf "\n----- NMAP -----\n\n" 
 echo -e "${RED} [+] Running Nmap ... ${RESET}" 
-nmap -A -Pn $TARGET > $INFO_PATH/nmap.txt 
+nmap -sV -T3 -Pn -p3868,3366,8443,8080,9443,9091,3000,8000,5900,8081,6000,10000,8181,3306,5000,4000,8888,5432,15672,9999,161,4044,7077,4040,9000,8089,443,7447,7080,8880,8983,5673,7443,19000,19080 $TARGET |  grep -E 'open|filtered|closed' > $INFO_PATH/nmap.txt 
 
 printf "\n----- WHATWEB -----\n\n" 
 echo -e "${RED} [+] Checking 4 Whatweb ... ${RESET}" 
@@ -80,10 +80,39 @@ printf "\n----- ASSETFINDER -----\n\n"
 echo -e "${RED} [+] Launching Assetfinder... ${RESET}" 
 assetfinder -subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt 
 
-printf "\n----- TIME TO CHECK ALIVE SUBDOMAIN -----\n\n" 
+printf "\n----- FINALLY TIME TO PROBE ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
-cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -mc 200  > $SUBDOMAIN_PATH/alive.txt
-cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-detect -status-code > $SUBDOMAIN_PATH/techdetect.txt
+cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u | httprobe -c 50 -t 3000  >> $SUBDOMAIN_PATH/responsive.txt
+cat $SUBDOMAIN_PATH/responsive.txt  | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | while read line; do
+probeurl=$(cat  $SUBDOMAIN_PATH/responsive.txt | sort -u | grep -m 1 $line)  
+echo "$probeurl" >>  $SUBDOMAIN_PATH/urllist.txt
+done
+echo "(cat $SUBDOMAIN_PATH/urllist.txt | sort -u)" > $SUBDOMAIN_PATH/urllist.txt
+echo  "${yellow}Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}') live subdomains were found${reset}"
+
+printf "\n----- TIME TO TAKE SCREENSHOTS OF ALL PROBE SUBDOMAIN -----\n\n" 
+echo "Starting aquatone scan..."
+cat $SUBDOMAIN_PATH/urllist.txt | aquatone -chrome-path /usr/bin/chromium -out  $SUBDOMAIN_PATH/aqua_out -threads 5 -silent 
+
+
+printf "\n----- SCRAPE4SCRAPE -----\n\n" 
+echo "Scraping wayback for data..."
+cat $SUBDOMAIN_PATH/urllist.txt | gau > $SUBDOMAIN_PATH/gau-data/gaus.txt
+cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u |  unfurl --unique keys > $SUBDOMAIN_PATH/gau-data/paramlist.txt
+[ -s  $SUBDOMAIN_PATH/gau-data/paramlist.txt ] && echo "Wordlist saved to  $SUBDOMAIN_PATH/gau-data/paramlist.txt"
+
+
+cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.js(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/jsurls.txt
+[ -s  $SUBDOMAIN_PATH/gau-data/jsurls.txt ] && echo "JS Urls saved to  $SUBDOMAIN_PATH/gau-data/jsurls.txt"
+
+cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.php(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/phpurls.txt
+[ -s  $SUBDOMAIN_PATH/gau-data/phpurls.txt ] && echo "PHP Urls saved to  $SUBDOMAIN_PATH/gau-data/phpurls.txt"
+
+cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.aspx(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/aspxurls.txt
+[ -s  $SUBDOMAIN_PATH/gau-data/aspxurls.txt ] && echo "ASPX Urls saved to  $SUBDOMAIN_PATH/gau-data/aspxurls.txt"
+
+cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.jsp(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/jspurls.txt
+[ -s  $SUBDOMAIN_PATH/gau-data/jsurls.txt ] && echo "JSP Urls saved to  $SUBDOMAIN_PATH/gau-data/jspurls.txt"
 
 
 
@@ -91,7 +120,7 @@ cat $SUBDOMAIN_PATH/found_subdomain.txt | httpx-toolkit -silent -title -tech-det
 printf "\n----- VULNERABILITY SCANNING-----\n\n" 
 echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find.... ${RESET}" 
 echo -e "${RED} [+] This may take some time... Make sure you take a break and have a coffee....${RESET}"
-cat $SUBDOMAIN_PATH/alive.txt | nuclei  > $INFO_PATH/nuclei.txt
+cat $SUBDOMAIN_PATH/urllist.txt | nuclei  > $INFO_PATH/nuclei.txt
 
 
 #printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
