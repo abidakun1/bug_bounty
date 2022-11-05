@@ -16,7 +16,8 @@ DOMAIN="$1_domain"
 INFO_PATH="$1_domain/info" 
 SUBDOMAIN_PATH="$1_domain/subdomain" 
 DIRECTORY_ENUM="$1_domain/directory_enum" 
-
+GAU_PATH="$1_domain/gau_data"
+SCREENSHOT="$1_domain/aqua_shot"
 
 if [ -z "$1" ] 
   then
@@ -40,6 +41,15 @@ if [ ! -d "$DIRECTORY_ENUM" ];then
         mkdir $DIRECTORY_ENUM 
 fi
  
+ if [ ! -d "$GAU_PATH" ];then 
+mkdir $GAU_PATH 
+fi
+
+if [ !  -d "$SCREEENSHOTS" ];then 
+mkdir $SCREENSHOTS
+fi 
+ 
+
 printf "\n----- WHOIS -----\n\n" 
 echo -e "${RED} [+] Checking whois ... ${RESET}" 
 whois $TARGET > $INFO_PATH/whois.txt 
@@ -92,27 +102,27 @@ echo  "${yellow}Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}')
 
 printf "\n----- TIME TO TAKE SCREENSHOTS OF ALL PROBE SUBDOMAIN -----\n\n" 
 echo "Starting aquatone scan..."
-cat $SUBDOMAIN_PATH/urllist.txt | aquatone -chrome-path /usr/bin/chromium -out  $SUBDOMAIN_PATH/aqua_out -threads 5 -silent 
+cat $SUBDOMAIN_PATH/urllist.txt | aquatone -chrome-path /usr/bin/chromium -out $SCREENSHOT -threads 5 -silent 
 
 
 printf "\n----- SCRAPE4SCRAPE -----\n\n" 
 echo "Scraping wayback for data..."
-cat $SUBDOMAIN_PATH/urllist.txt | gau > $SUBDOMAIN_PATH/gau-data/gaus.txt
-cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u |  unfurl --unique keys > $SUBDOMAIN_PATH/gau-data/paramlist.txt
-[ -s  $SUBDOMAIN_PATH/gau-data/paramlist.txt ] && echo "Wordlist saved to  $SUBDOMAIN_PATH/gau-data/paramlist.txt"
+cat $SUBDOMAIN_PATH/urllist.txt | gau > $GAU_PATH/gaus.txt
+cat $GAU_PATH/gaus.txt | sort -u |  unfurl --unique keys > $GAU_PATH/paramlist.txt
+[ -s   $GAU_PATH/paramlist.txt ] && echo "Wordlist saved to  $GAU_PATH/paramlist.txt"
 
 
-cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.js(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/jsurls.txt
-[ -s  $SUBDOMAIN_PATH/gau-data/jsurls.txt ] && echo "JS Urls saved to  $SUBDOMAIN_PATH/gau-data/jsurls.txt"
+cat $GAU_PATH/gaus.txt | sort -u | grep -P "\w+\.js(\?|$)" | sort -u  > $GAU_PATH/jsurls.txt
+[ -s  $GAU_PATH/jsurls.txt ] && echo "JS Urls saved to   $GAU_PATH/jsurls.txt"
 
-cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.php(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/phpurls.txt
-[ -s  $SUBDOMAIN_PATH/gau-data/phpurls.txt ] && echo "PHP Urls saved to  $SUBDOMAIN_PATH/gau-data/phpurls.txt"
+cat $GAU_PATH/gaus.txt | sort -u | grep -P "\w+\.php(\?|$)" | sort -u  > $GAU_PATH/phpurls.txt
+[ -s   $GAU_PATH/phpurls.txt ] && echo "PHP Urls saved to  $GAU_PATH/phpurls.txt"
 
-cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.aspx(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/aspxurls.txt
-[ -s  $SUBDOMAIN_PATH/gau-data/aspxurls.txt ] && echo "ASPX Urls saved to  $SUBDOMAIN_PATH/gau-data/aspxurls.txt"
+cat  $GAU_PATH/gaus.txt | sort -u | grep -P "\w+\.aspx(\?|$)" | sort -u  > $GAU_PATH/aspxurls.txt
+[ -s  $GAU_PATH/aspxurls.txt ] && echo "ASPX Urls saved to  $GAU_PATH/aspxurls.txt"
 
-cat $SUBDOMAIN_PATH/gau-data/gaus.txt | sort -u | grep -P "\w+\.jsp(\?|$)" | sort -u  > $SUBDOMAIN_PATH/gau-data/jspurls.txt
-[ -s  $SUBDOMAIN_PATH/gau-data/jsurls.txt ] && echo "JSP Urls saved to  $SUBDOMAIN_PATH/gau-data/jspurls.txt"
+cat  $GAU_PATH/gaus.txt | sort -u | grep -P "\w+\.jsp(\?|$)" | sort -u  >  $GAU_PATH/jspurls.txt
+[ -s  $GAU_PATH/jsurls.txt ] && echo "JSP Urls saved to  $GAU_PATH/jspurls.txt"
 
 
 
