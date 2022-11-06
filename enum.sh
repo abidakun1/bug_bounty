@@ -98,7 +98,7 @@ echo  "Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}') live sub
 
 printf "\n----- TIME TO TAKE SCREENSHOTS OF ALL PROBE SUBDOMAIN -----\n\n" 
 echo "Starting aquatone scan..."
-cat $SUBDOMAIN_PATH/urllist.txt | aquatone  -out $SCREENSHOT -threads 5 -silent 
+cat $SUBDOMAIN_PATH/urllist.txt | sudo aquatone  -out $SCREENSHOT -threads 5 -silent 
 
 
 printf "\n----- SCRAPE4SCRAPE -----\n\n" 
