@@ -74,6 +74,12 @@ printf "\n----- FINDOMAIN -----\n\n"
 echo -e "${RED} [+] Launching findomain ... ${RESET}" 
 findomain -t $TARGET > $SUBDOMAIN_PATH/found_subdomain.txt 
 
+printf "\n----- DNSRECON -----\n\n" 
+echo -e "${RED} [+] Launching dnsrecon ... ${RESET}" 
+dnsrecon -t brt -d  $TARGET > $SUBDOMAIN_PATH/found_subdomain.tx
+
+
+
 printf "\n----- AMASS -----\n\n" 
 echo -e "${RED} [+] Launching Amass ... ${RESET}" 
 amass enum -d $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt 
