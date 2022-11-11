@@ -76,7 +76,7 @@ findomain -t $TARGET > $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- DNSRECON -----\n\n" 
 echo -e "${RED} [+] Launching dnsrecon ... ${RESET}" 
-dnsrecon -t brt -d  $TARGET > $SUBDOMAIN_PATH/found_subdomain.txt
+dnsrecon -t brt -d  $TARGET -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt > $SUBDOMAIN_PATH/found_subdomain.txt
 
 
 
