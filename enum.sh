@@ -76,7 +76,7 @@ findomain -t $TARGET > $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- DNSRECON -----\n\n" 
 echo -e "${RED} [+] Launching dnsrecon ... ${RESET}" 
-dnsrecon -t brt -d  $TARGET > $SUBDOMAIN_PATH/found_subdomain.tx
+dnsrecon -t brt -d  $TARGET > $SUBDOMAIN_PATH/found_subdomain.txt
 
 
 
