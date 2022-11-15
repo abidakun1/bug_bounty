@@ -86,7 +86,7 @@ amass enum -d $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- SUBFINDER -----\n\n" 
 echo -e "${RED} [+] Launching Subfinder ... ${RESET}" 
-subfinder -silent -d $TARGET -all >> $SUBDOMAIN_PATH/found_subdomain.txt 
+subfinder -silent -d $TARGET  >> $SUBDOMAIN_PATH/found_subdomain.txt 
 
 printf "\n----- SUBLIST3R -----\n\n" 
 echo -e "${RED} [+] Launching Sublist3r ... ${RESET}" 
