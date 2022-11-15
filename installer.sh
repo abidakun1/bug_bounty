@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIST_OF_APPS="amass dirsearch figlet sublist3r subfinder cargo assetfinder nuclei seclists httprobe aquatone dnsrecon httpx-toolkit"
+LIST_OF_APPS="cargo amass dirsearch figlet sublist3r subfinder  assetfinder nuclei seclists httprobe aquatone dnsrecon httpx-toolkit"
 
 if [[ "$(whoami)" != root ]]; then
 echo "Only sudo user can run this script."
