@@ -27,31 +27,31 @@ if [[ $? -ne 0 ]]; then
 fi
 tar xzf unfurl-linux-amd64-0.0.1.tgz
 if [[ $? -ne 0 ]]; then
-  echo "Failed to download unfurl. Exiting script."
+  echo "Failed to install required applications. Exiting script."
   exit 1
 fi
 sudo mv unfurl /usr/bin
 
 wget https://github.com/michenriksen/aquatone/releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip
 if [[ $? -ne 0 ]]; then
-  echo "Failed to download unfurl. Exiting script."
+  echo "Failed to install required applications. Exiting script."
   exit 1
 fi
 unzip aquatone_linux_amd64_1.7.0.zip
 if [[ $? -ne 0 ]]; then
-  echo "Failed to download unfurl. Exiting script."
+  echo "Failed to install required applications. Exiting script."
   exit 1
 fi
 sudo mv aquatone /usr/bin
 
 git clone https://github.com/Edu4rdSHL/findomain.git
 if [[ $? -ne 0 ]]; then
-  echo "Failed to download unfurl. Exiting script."
+  echo "Failed to install required applications. Exiting script." 
   exit 1
 fi
 cd findomain && cargo build --release
 if [[ $? -ne 0 ]]; then
-  echo "Failed to download unfurl. Exiting script."
+  echo "Failed to install required applications. Exiting script."
   exit 1
 fi
 sudo cp target/release/findomain /usr/bin/
