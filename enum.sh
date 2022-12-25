@@ -64,15 +64,30 @@ printf "\n----- WHATWEB -----\n\n"
 echo -e "${RED} [+] Checking 4 Whatweb ... ${RESET}" 
 whatweb $TARGET > $INFO_PATH/whatweb.txt 
 
-printf "\n----- FINDOMAIN -----\n\n" 
+printf "\n----- PUBLIC API SUBDOMAIN ENUMERATION-----\n\n" 
+echo -e "${RED} [+] Launching gau4subs... ${RESET}" 
+gau --subs $TARGET | cut -d "/" -f 3 | sort -u > $SUBDOMAIN_PATH/found_subdomain.txt 
+
+echo -e "${RED} [+] Launching anubis... ${RESET}" 
+curl https://jldc.me/anubis/subdomains/$TARGET | jq -r ".[]" >> $SUBDOMAIN_PATH/found_subdomain.txt 
+
+echo -e "${RED} [+] Launching rapid... ${RESET}" 
+curl -s "https://rapiddns.io/subdomain/$TARGET?full=1" \
+  | grep -oE "[\.a-zA-Z0-9-]+\.$TARGET" \
+  | sort -u  >> $SUBDOMAIN_PATH/found_subdomain.txt  
+
+echo -e "${RED} [+] Launching crt.sh.. ${RESET}" 
+ curl -s "https://crt.sh/?q=%25.$TARGET" \
+  | grep -oE "[\.a-zA-Z0-9-]+\.$TARGET" \
+  | sort -u >> $SUBDOMAIN_PATH/found_subdomain.txt  
+
+printf "\n----- TOOLS SUBDOMAIN ENUMERATION -----\n\n" 
 echo -e "${RED} [+] Launching findomain ... ${RESET}" 
-findomain -t $TARGET > $SUBDOMAIN_PATH/found_subdomain.txt 
+findomain -t $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt 
 
 printf "\n----- DNSRECON -----\n\n" 
 echo -e "${RED} [+] Launching dnsrecon ... ${RESET}" 
 gobuster dns -d $TARGET -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt > $SUBDOMAIN_PATH/dns_subdomain.txt
-
-
 
 printf "\n----- AMASS -----\n\n" 
 echo -e "${RED} [+] Launching Amass ... ${RESET}" 
