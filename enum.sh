@@ -64,10 +64,7 @@ printf "\n----- WHATWEB -----\n\n"
 echo -e "${RED} [+] Checking 4 Whatweb ... ${RESET}" 
 whatweb $TARGET > $INFO_PATH/whatweb.txt 
 
-printf "\n----- PUBLIC API SUBDOMAIN ENUMERATION-----\n\n" 
-echo -e "${RED} [+] Launching gau4subs... ${RESET}" 
-gau --subs $TARGET | cut -d "/" -f 3 | sort -u > $SUBDOMAIN_PATH/found_subdomain.txt 
-
+printf "\n----- PUBLIC API SUBDOMAIN ENUMERATION-----\n\n"
 echo -e "${RED} [+] Launching anubis... ${RESET}" 
 curl https://jldc.me/anubis/subdomains/$TARGET | jq -r ".[]" >> $SUBDOMAIN_PATH/found_subdomain.txt 
 
