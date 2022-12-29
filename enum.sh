@@ -69,14 +69,10 @@ echo -e "${RED} [+] Launching anubis... ${RESET}"
 curl https://jldc.me/anubis/subdomains/$TARGET | jq -r ".[]" >> $SUBDOMAIN_PATH/found_subdomain.txt 
 
 echo -e "${RED} [+] Launching rapid... ${RESET}" 
-curl -s "https://rapiddns.io/subdomain/$TARGET?full=1" \
-  | grep -oE "[\.a-zA-Z0-9-]+\.$TARGET" \
-  | sort -u  >> $SUBDOMAIN_PATH/found_subdomain.txt  
+curl -s "https://rapiddns.io/subdomain/$TARGET?full=1" | grep -oE "[\.a-zA-Z0-9-]+\.$TARGET" | sort -u  >> $SUBDOMAIN_PATH/found_subdomain.txt  
 
 echo -e "${RED} [+] Launching crt.sh.. ${RESET}" 
- curl -s "https://crt.sh/?q=%25.$TARGET" \
-  | grep -oE "[\.a-zA-Z0-9-]+\.$TARGET" \
-  | sort -u >> $SUBDOMAIN_PATH/found_subdomain.txt  
+ curl -s "https://crt.sh/?q=%25.$TARGET" | grep -oE "[\.a-zA-Z0-9-]+\.$TARGET" | sort -u >> $SUBDOMAIN_PATH/found_subdomain.txt  
 
 printf "\n----- TOOLS SUBDOMAIN ENUMERATION -----\n\n" 
 echo -e "${RED} [+] Launching findomain ... ${RESET}" 
