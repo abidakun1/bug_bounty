@@ -138,10 +138,10 @@ cat $SUBDOMAIN_PATH/urllist.txt | nuclei  > $INFO_PATH/nuclei.txt
 
 echo -e "${RED} [+] Running Nikto Scanner... Let see what Info we could find.... ${RESET}" 
 
-#for i in "cat $SUBDOMAIN_PATH/urllist.txt";
-#do
-#nikto -h $i > $INFO_PATH/nikto.txt
-#done
+for i in "cat $SUBDOMAIN_PATH/responsive.txt";
+do 
+wapiti -u $i >> $INFO_PATH/wapiti.txt
+done
 
 #printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
 #echo -e "${RED} [+] Starting Directory Enumeration...... ${RESET}" 
