@@ -4,13 +4,13 @@
 TARGET=$1
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
-  echo "Usage: crawler4P2.sh target.com"
+  echo "Usage: crawler4p2.sh target.com"
   exit 0
 fi
 
 if [ $# -lt 1 ]; then
    echo "Error: No target provided"
-   echo "Usage: crawler4P2.sh target.com"
+   echo "Usage: crawler4p2.sh target.com"
    exit 1
 fi
 
