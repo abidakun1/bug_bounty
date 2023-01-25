@@ -80,7 +80,7 @@ findomain -t $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- DNSRECON -----\n\n" 
 echo -e "${RED} [+] Launching dnsrecon ... ${RESET}" 
-gobuster dns --wildcard -d $TARGET --wildcard -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-10000.txt > $SUBDOMAIN_PATH/dns_subdomain.txt
+gobuster dns --wildcard -d $TARGET --wildcard -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt > $SUBDOMAIN_PATH/dns_subdomain.txt
 
 printf "\n----- AMASS -----\n\n" 
 echo -e "${RED} [+] Launching Amass ... ${RESET}" 
