@@ -80,7 +80,7 @@ findomain -t $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- DNSRECON -----\n\n" 
 echo -e "${RED} [+] Launching dnsrecon ... ${RESET}" 
-gobuster dns --wildcard -d $TARGET --wildcard -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-20000.txt > $SUBDOMAIN_PATH/dns_subdomain.txt
+gobuster dns --wildcard -d $TARGET --wildcard -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-10000.txt > $SUBDOMAIN_PATH/dns_subdomain.txt
 
 printf "\n----- AMASS -----\n\n" 
 echo -e "${RED} [+] Launching Amass ... ${RESET}" 
@@ -100,7 +100,7 @@ assetfinder --subs-only $TARGET >> $SUBDOMAIN_PATH/found_subdomain.txt
 
 printf "\n----- FINALLY TIME TO PROBE ALIVE SUBDOMAIN -----\n\n" 
 echo -e "${RED} [+] Checking What's Alive... ${RESET}" 
-cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u |  httprobe -p http:81 -p http:3000 -p https:3000 -p http:3001 -p https:3001 -p http:8000 -p http:8080 -p https:8443 -c 50  | tee -a $SUBDOMAIN_PATH/responsive.txt
+cat $SUBDOMAIN_PATH/found_subdomain.txt | sort -u | httpx-toolkit -mc 200,302,403 | tee -a $SUBDOMAIN_PATH/responsive.txt
 cat $SUBDOMAIN_PATH/responsive.txt  | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | tee -a  $SUBDOMAIN_PATH/urllist.txt
 echo  "Total of $(wc -l $SUBDOMAIN_PATH/urllist.txt | awk '{print $1}') live subdomains were found"
 
