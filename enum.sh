@@ -136,11 +136,11 @@ echo -e "${RED} [+] Running Nuclei Scanner... Let see what Info we could find...
 echo -e "${RED} [+] This may take some time... Make sure you take a break and have a coffee....${RESET}"
 cat $SUBDOMAIN_PATH/urllist.txt | nuclei  > $INFO_PATH/nuclei.txt
 
-echo -e "${RED} [+] Running Nikto Scanner... Let see what Info we could find.... ${RESET}" 
+#echo -e "${RED} [+] Running Nikto Scanner... Let see what Info we could find.... ${RESET}" 
 
-for i in "cat $SUBDOMAIN_PATH/responsive.txt";
-do 
-wapiti -u $i >> $INFO_PATH/wapiti.txt
+#for i in "cat $SUBDOMAIN_PATH/responsive.txt";
+#do 
+#wapiti -u $i >> $INFO_PATH/wapiti.txt
 done
 
 #printf "\n----- DIRECTORY ENUM TIME -----\n\n" 
